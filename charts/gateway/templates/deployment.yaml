@@ -43,6 +43,16 @@ spec:
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/conf/log-override.properties
               subPath: log-override.properties
           env:
+            - name: SSG_ADMIN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: gw-pm-credentials
+                  key: ssg-admin-username
+            - name: SSG_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: gw-pm-credentials
+                  key: ssg-admin-password
             - name: ACCEPT_LICENSE
               valueFrom:
                 configMapKeyRef:

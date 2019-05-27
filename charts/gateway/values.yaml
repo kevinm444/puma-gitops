@@ -80,6 +80,8 @@ gateway:
     secretName: gw-tls
     cert: tls.crt
     pem: tls.key
+  adminUsername: "admin"
+  adminPassword: "password"
 
 
 hazelcast:
