@@ -6,12 +6,12 @@ metadata:
   namespace: test
   annotations:
 #    flux.weave.works/ignore: "true"
-    flux.weave.works/automated: "false"
-    flux.weave.works/tag.chart-image: glob:*
+    flux.weave.works/automated: "true"
+    flux.weave.works/tag.container: semver:*
 spec:
   releaseName: gateway-test
   chart:
-    git: git@github.com:wynnel/puma-gitops
+    git: git@github.com:kevinm444/puma-gitops
     path: charts/gateway
     ref: master
   valuesFrom:
@@ -25,24 +25,21 @@ spec:
     replicaCount: 1
     container:
       image: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: 26
+      tag: '11'
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
       username: "admin"
     hazelcast:
       enabled: false
-    service:  
+    service:
       ports:
-        - name: http
-          internal: 8080
-          external: 80
-        - name: https
-          internal: 8443
-          external: 443
-        - name: custom-http
-          internal: 12345
-          external: 12345
+      - name: http
+        internal: 8080
+        external: 80
+      - name: https
+        internal: 8443
+        external: 443
     gateway:
       license:
         accept: "true"
@@ -52,13 +49,8 @@ spec:
         ENV.PASSWORD.password: "less secret test password"
         ENV.CONTEXT_VARIABLE_PROPERTY.influxdb.influxdb: "apim-service-metrics-runtime-influxdb.default"
         ENV.CONTEXT_VARIABLE_PROPERTY.influxdb.tags: "env=test"
-        ENV.LISTEN_PORT.custom-https: '{
-          "protocol" : "HTTP",
-          "port" : 12345,
-          "enabledFeatures" : [ "Published service message input" ],
-          "properties" : {
-            "threadPoolSize" : "20"
-          }
-            }'
+        ENV.LISTEN_PORT.custom-https: '{ "protocol" : "HTTP", "port" : 12345, "enabledFeatures"
+          : [ "Published service message input" ], "properties" : { "threadPoolSize"
+          : "20" } }'
 
 

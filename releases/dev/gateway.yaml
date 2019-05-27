@@ -6,12 +6,11 @@ metadata:
   namespace: dev
   annotations:
     flux.weave.works/automated: "true"
-    flux.weave.works/tag.gateway: glob:*
+    flux.weave.works/tag.container: semver:*
 spec:
   releaseName: gateway-dev
-  forceUpgrade: true
   chart:
-    git: git@github.com:wynnel/puma-gitops
+    git: git@github.com:kevinm444/puma-gitops
     path: charts/gateway
     ref: master
   valuesFrom:
@@ -21,14 +20,14 @@ spec:
   - secretKeyRef:
       name: gateway-license
       key: license.yaml
-  - configMapKeyRef:
-      name: env-values
+  - secretKeyRef:
+      name: env
       key: env.yaml
   values:
     replicaCount: 1
     container:
       image: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: '32'
+      tag: '11'
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
