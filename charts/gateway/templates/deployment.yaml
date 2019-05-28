@@ -33,7 +33,7 @@ spec:
             - containerPort: {{ .internal }}
             {{- end }}
           volumeMounts:
-            - name: {{ template "gateway.fullname" . }}-private-keys
+            - name: gateway-private-keys
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/env/config/privateKeys
             - name: {{ template "gateway.fullname" . }}-license-xml
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/license/license.xml
@@ -110,9 +110,9 @@ spec:
             successThreshold: {{ .Values.readinessProbe.successThreshold }}
 {{- end }}
       volumes:
-        - name: {{ template "gateway.fullname" . }}-private-keys
+        - name: gateway-private-keys
           secret:
-            secretName: {{ template "gateway.fullname" .}}-privateKeys
+            secretName: gateway-privateKeys
         - name: {{ template "gateway.fullname" . }}-license-xml
           secret:
             secretName: {{ template "gateway.fullname" .}}-license
