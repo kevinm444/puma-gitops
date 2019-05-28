@@ -113,10 +113,7 @@ spec:
       volumes:
         - name: gateway-private-keys
           secret:
-            secretName: gateway-privateKeys
-            items:
-            - key: privateKeys
-              path: privateKeys.yaml
+            secretName: gateway-privatekeys
         - name: {{ template "gateway.fullname" . }}-license-xml
           secret:
             secretName: {{ template "gateway.fullname" .}}-license
