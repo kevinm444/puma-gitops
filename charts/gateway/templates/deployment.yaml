@@ -33,7 +33,7 @@ spec:
             - containerPort: {{ .internal }}
             {{- end }}
           volumeMounts:
-            - name: {{ template "gateway.fullname" . }}-license-xml-private-keys
+            - name: {{ template "gateway.fullname" . }}-private-keys
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/env/config/privateKeys
             - name: {{ template "gateway.fullname" . }}-license-xml
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/license/license.xml
