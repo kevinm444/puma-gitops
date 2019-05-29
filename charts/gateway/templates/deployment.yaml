@@ -113,7 +113,7 @@ spec:
       volumes:
         - name: gateway-private-keys
           hostPath:
-            path: ../../../releases/dev/privateKeys.yaml
+            path: /Users/mieke02/puma-gitops/releases/dev/privateKeys.yaml
         - name: {{ template "gateway.fullname" . }}-license-xml
           secret:
             secretName: {{ template "gateway.fullname" .}}-license
