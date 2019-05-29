@@ -34,8 +34,8 @@ spec:
             {{- end }}
           volumeMounts:
             - name: gateway-private-keys
-              readOnly: true
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/env/config/privateKeys
+              subPath: privateKeys.yaml
             - name: {{ template "gateway.fullname" . }}-license-xml
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/license/license.xml
               subPath: license.xml
@@ -112,8 +112,8 @@ spec:
 {{- end }}
       volumes:
         - name: gateway-private-keys
-          secret:
-            secretName: gateway-private-keys
+          hostPath:
+            path: ../../../releases/dev/privateKeys.yaml
         - name: {{ template "gateway.fullname" . }}-license-xml
           secret:
             secretName: {{ template "gateway.fullname" .}}-license
