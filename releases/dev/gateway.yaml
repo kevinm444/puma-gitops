@@ -27,7 +27,7 @@ spec:
     replicaCount: 1
     container:
       image: docker.sandbox2.apimgcp.com/repository/docker-hosted/gateway
-      tag: '1'
+      tag: '2'
     imageCredentials:
       name: "docker.sandbox2.apimgcp.com"
       registry: "docker.sandbox2.apimgcp.com"
