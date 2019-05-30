@@ -42,7 +42,6 @@ spec:
             - name: {{ template "gateway.fullname" . }}-log-config-override
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/conf/log-override.properties
               subPath: log-override.properties
-{{ toYaml .Values.volumeMounts | indent 10 }}
           env:
             - name: SSG_ADMIN_USERNAME
               valueFrom:
@@ -127,4 +126,3 @@ spec:
             items:
             - key: log-override-properties
               path: log-override.properties
-{{ toYaml .Values.volumes | indent 8 }}
