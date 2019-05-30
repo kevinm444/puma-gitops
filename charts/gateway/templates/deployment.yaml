@@ -33,9 +33,10 @@ spec:
             - containerPort: {{ .internal }}
             {{- end }}
           volumeMounts:
+{{- if .Values.gateway.env.gateway-private-keys }}
             - name: gateway-private-keys
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/env/config/privateKeys
-              subPath: privateKeys.yaml
+{{- end }}
             - name: {{ template "gateway.fullname" . }}-license-xml
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/bootstrap/license/license.xml
               subPath: license.xml
@@ -45,6 +46,7 @@ spec:
             - name: {{ template "gateway.fullname" . }}-log-config-override
               mountPath: /opt/SecureSpan/Gateway/node/default/etc/conf/log-override.properties
               subPath: log-override.properties
+{{ toYaml .Values.volumeMounts | indent 10 }}
           env:
             - name: SSG_ADMIN_USERNAME
               valueFrom:
@@ -111,9 +113,11 @@ spec:
             successThreshold: {{ .Values.readinessProbe.successThreshold }}
 {{- end }}
       volumes:
+{{- if .Values.gateway.env.gateway-private-keys }}
         - name: gateway-private-keys
-          hostPath:
-            path: ../
+          secret:
+            secretName: gateway-private-keys
+{{- end }}  
         - name: {{ template "gateway.fullname" . }}-license-xml
           secret:
             secretName: {{ template "gateway.fullname" .}}-license
@@ -132,3 +136,4 @@ spec:
             items:
             - key: log-override-properties
               path: log-override.properties
+{{ toYaml .Values.volumes | indent 8 }}
