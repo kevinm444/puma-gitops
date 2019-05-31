@@ -23,6 +23,9 @@ spec:
   - secretKeyRef:
       name: env
       key: env.yaml
+  - secretKeyRef:
+      name: gateway-private-keys
+      key: privateKeys.yaml
   values:
     replicaCount: 1
     container:
