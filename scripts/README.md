@@ -1,20 +1,27 @@
-Secret for image credentials:
+# Configuring Secrets
+
+The following commands creates a secret encrypted by Kubeseal for the specified information, where '<namespace>' indicates which environment your secrets are created in:
+
+##### Image Credentials
+Secret encrypted by Kubeseal for image credentials:
 ```bash
-./makeImageCreds.sh -namespace=test -dest=../releases/test/image-creds.yaml -password=<password>
+./makeImageCreds.sh -namespace=<namespace> -dest=../releases/<namespace>/image-creds.yaml -password=<password>
 ```
 
-Secret for license:
+##### License
+This command creates a Secret encrypted by Kubeseal for license:
 ```bash
-./makeLicense.sh -namespace=test -dest=../releases/test/gateway-license.yaml -license=<license.xml file>
+./makeLicense.sh -namespace=<namespace> -dest=../releases/<namespace>/gateway-license.yaml -license=<license.xml file>
 ```
 
-Example Secret from values file (env.yml):
+##### Environment
+Environment values are required for specific Gateway configurations to work.
+Read more about environments: https://github.com/ca-api-gateway/gateway-developer-plugin/wiki/Applying-Environment.
+Entities that include an _Environment_ section is supported. 
+
+This command creates a Secret encrypted by Kubeseal for environment values:
 ```bash
-kubectl create secret generic env --dry-run  -n test  -o yaml --from-file=env.yaml  | kubeseal --format yaml > "../releases/test/env.yaml"
+./makeEnv.sh -namespace=namespace -dest=../releases/<namespace>/env.yaml -ext=<extension>
 ```
-```helmyaml
-  valuesFrom:
-  - secretKeyRef:
-      name: env
-      key: env.yaml
-```
+
+The command will take in an _extension_, which can be either json or yaml (depending on the type of exported Gateway environment values). It will then create an _env.yaml_ file that parses any entities files inside the _script/_ folder.
