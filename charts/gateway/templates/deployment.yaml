@@ -112,11 +112,10 @@ spec:
             successThreshold: {{ .Values.readinessProbe.successThreshold }}
 {{- end }}
       volumes:
-{{- if .Values.gateway.env.gatewayPrivateKeys }}
         - name: gateway-private-keys
           secret:
             secretName: gateway-private-keys
-{{- end }}
+            optional: true
         - name: {{ template "gateway.fullname" . }}-license-xml
           secret:
             secretName: {{ template "gateway.fullname" .}}-license
